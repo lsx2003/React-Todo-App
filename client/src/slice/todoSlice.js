@@ -23,4 +23,4 @@ const todoSlice = createSlice({
 });
 
 export default todoSlice;
-export const { fetchData, add, done, sync } = todoSlice.actions;
+export const { fetchData, add, sync } = todoSlice.actions;

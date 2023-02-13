@@ -6,7 +6,7 @@ import {
 } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { open2, setId } from "../slice/addContentSlice";
-import { done, sync, fetchData } from "../slice/todoSlice";
+import { sync, fetchData } from "../slice/todoSlice";
 import { useEffect } from "react";
 
 const TodoContainer = styled.div`
@@ -106,7 +106,6 @@ export default function Todos() {
 
   const dondHandler = (id, isDone, idx) => {
     changeDone(id, isDone);
-    window.location.reload();
   };
 
   // 서버에서  todo 데이터 가져와서 state에 추가
@@ -136,6 +135,8 @@ export default function Todos() {
         isDone,
       }),
     });
+    console.log("done");
+    window.location.reload();
   };
 
   return (

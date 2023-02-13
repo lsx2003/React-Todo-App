@@ -18,7 +18,6 @@ const BtnContainer = styled.div`
   align-items: flex-end;
   width: 100%;
   height: 100px;
-  max-height: 1000px;
   bottom: 0;
 `;
 const AddBtn = styled.button`
@@ -76,12 +75,13 @@ const AddContentBtn = styled.button`
   justify-content: center;
   align-items: center;
   background-color: #60a3bc;
-  width: 70px;
-  height: 40px;
+  width: 100px;
+  height: 35px;
   border-radius: 15px;
-  margin: 15px 15px 0px 85%;
+  margin: 20px 15px 5px 70%;
   border: none;
-  font-size: 30px;
+  font-size: 20px;
+  font-weight: 600;
   color: white;
   :hover {
     background-color: #7f8c8d;
@@ -91,7 +91,8 @@ const AddContentBtn = styled.button`
 const UpdateTodo = styled.div`
   position: absolute;
   bottom: 0px;
-  width: 600px;
+  width: 100%;
+  min-width: 350px;
   height: 200px;
   display: flex;
   flex-direction: column;
@@ -114,13 +115,14 @@ const UpdateContentBtn = styled.button`
   align-items: center;
   background-color: #60a3bc;
   width: 100px;
-  height: 50px;
+  height: 35px;
   border-radius: 15px;
-  margin: 20px 15px 5px 78%;
+  margin: 20px 15px 5px 70%;
   border: none;
   font-size: 20px;
   font-weight: 600;
   color: white;
+
   :hover {
     background-color: #7f8c8d;
   }
@@ -157,8 +159,10 @@ export default function Addtodd() {
   });
 
   const addHandler = (id, date, done, content) => {
-    dispatch(add({ id: id, date: date, isDone: done, content: content }));
-    addTodos(id, date, done, content);
+    if (content) {
+      dispatch(add({ id: id, date: date, isDone: done, content: content }));
+      addTodos(id, date, done, content);
+    }
   };
   //  todo 추가하기
 
@@ -210,7 +214,7 @@ export default function Addtodd() {
               changeContent(id, newContent);
             }}
           >
-            수정 하기
+            수 정
           </UpdateContentBtn>
         </UpdateTodo>
       ) : null}
@@ -232,7 +236,7 @@ export default function Addtodd() {
               dispatch(addContent(null));
             }}
           >
-            +
+            추 가
           </AddContentBtn>
         </AddContent>
       ) : (

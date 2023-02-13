@@ -14,9 +14,8 @@ const Backgroud = styled.div`
   align-items: center;
   text-align: center;
   background-color: #2f3640;
-  min-width: 500px;
-  min-height: 900px;
-  max-width: 600px;
+  min-width: 350px;
+  max-width: 500px;
   max-height: 800px;
   opacity: 0.7;
   border-radius: 15px;
@@ -30,8 +29,8 @@ const CalendarContainer = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 90%;
-  height: 500px;
+  width: 100%;
+  height: 800px;
   border-radius: 15px;
 `;
 const GoBackBtn = styled.div`

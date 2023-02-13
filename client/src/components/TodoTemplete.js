@@ -15,7 +15,7 @@ const Backgroud = styled.div`
   height: 100vh;
   min-width: 231px;
   min-height: 1000px;
-  max-height: 1500px;
+  max-height: 2000px;
 `;
 
 const Templete = styled.div`
@@ -23,8 +23,7 @@ const Templete = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 30%;
-  min-width: 600px;
-  min-height: 900px;
+  min-width: 350px;
   max-width: 500px;
   max-height: 800px;
   border-radius: 15px;

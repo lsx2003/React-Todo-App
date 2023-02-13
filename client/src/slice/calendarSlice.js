@@ -11,10 +11,10 @@ const calendarSlice = createSlice({
       state.clicked = false;
     },
     pick: (state, action) => {
-      console.log(action)
+      console.log(action);
     },
   },
 });
 
 export default calendarSlice;
-export const { open, close } = calendarSlice.actions;
+export const { open, close, pick } = calendarSlice.actions;

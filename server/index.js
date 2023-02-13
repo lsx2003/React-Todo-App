@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors());
 
-const port = 4000;
+const port = 4200;
 const todosRouter = require("./routes/todosRouter");
 
 app.listen(port, () => {
@@ -20,5 +20,5 @@ app.listen(port, () => {
 app.use("/api/todos", todosRouter);
 
 app.use("/", (req, res) => {
-  res.send("Todo-app Server");
+  res.json();
 });

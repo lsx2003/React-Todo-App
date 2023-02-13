@@ -6,8 +6,9 @@ import {
 } from "react-icons/bs";
 import { useSelector, useDispatch } from "react-redux";
 import { open2, setId } from "../slice/addContentSlice";
-import { add } from "../slice/todoSlice";
-import { useEffect, useState } from "react";
+import { done, sync, fetchData } from "../slice/todoSlice";
+import { useEffect } from "react";
+
 const TodoContainer = styled.div`
   display: flex;
   margin: 10px 0 10px 0;
@@ -87,11 +88,9 @@ const Container = styled.div`
 `;
 
 export default function Todos() {
-  const [update, setUpdate] = useState();
   const dispatch = useDispatch();
 
   const todos = useSelector((state) => {
-    console.log(state.todo[0]);
     return state.todo[0];
   });
 
@@ -99,23 +98,36 @@ export default function Todos() {
     getTodos();
   });
 
-  // 서버에서  todo 데이터 가져와서 state에 추가하기
-  const getTodos = async () => {
-    await fetch("http://localhost:4000/api/todos")
-      .then((res) => res.json())
-      .then((data) => dispatch(add(data)));
+  const removeHandler = (id) => {
+    const todo = todos.filter((todo) => id !== todo.id);
+    dispatch(sync(todo));
+    removeTodos(id);
   };
 
-  // 서버에서  todo 데이터 삭제 요청 후 state에 만 반영하기;
+  const dondHandler = (id, isDone, idx) => {
+    changeDone(id, isDone);
+    window.location.reload();
+  };
+
+  // 서버에서  todo 데이터 가져와서 state에 추가
+  const getTodos = async () => {
+    await fetch(`${process.env.REACT_APP_URL}/api/todos`)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(fetchData(data));
+      });
+  };
+
+  // 서버에서  todo 데이터 삭제 요청 후 state에 반영
   const removeTodos = async (id) => {
-    await fetch(`http://localhost:4000/api/todos/${id}`, {
+    await fetch(`${process.env.REACT_APP_URL}/api/todos/${id}`, {
       method: "DELETE",
     });
     window.location.reload();
   };
 
   const changeDone = async (id, isDone) => {
-    await fetch(`http://localhost:4000/api/todos/${id}`, {
+    await fetch(`${process.env.REACT_APP_URL}/api/todos/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -124,7 +136,6 @@ export default function Todos() {
         isDone,
       }),
     });
-    window.location.reload();
   };
 
   return (
@@ -136,7 +147,8 @@ export default function Todos() {
               {todo.isDone ? (
                 <ClickedBox
                   onClick={() => {
-                    changeDone(todo.id, todo.isDone);
+                    // changeDone(todo.id, todo.isDone);
+                    dondHandler(todo.id, todo.isDone, idx);
                   }}
                 >
                   <BsFillCheckCircleFill className="check"></BsFillCheckCircleFill>
@@ -144,7 +156,7 @@ export default function Todos() {
               ) : (
                 <CheckBox
                   onClick={() => {
-                    changeDone(todo.id, todo.isDone);
+                    dondHandler(todo.id, todo.isDone, idx);
                   }}
                 ></CheckBox>
               )}
@@ -153,7 +165,7 @@ export default function Todos() {
                 {todo.content}
                 <Cancel
                   onClick={() => {
-                    removeTodos(todo.id);
+                    removeHandler(todo.id, idx);
                   }}
                 >
                   <BsFillTrashFill></BsFillTrashFill>

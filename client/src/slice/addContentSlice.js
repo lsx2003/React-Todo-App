@@ -5,7 +5,6 @@ const addContentSlice = createSlice({
   initialState: { isOpen: false, value: "", selected: null },
   reducers: {
     setId: (state, action) => {
-      console.log("setId", action.payload);
       state.selected = action.payload;
     },
     open: (state, action) => {
@@ -13,6 +12,7 @@ const addContentSlice = createSlice({
     },
     // open2는 content 수정창 열기
     open2: (state, action) => {
+      // console.log("open", state);
       state.isOpen2 = true;
     },
     cancel: (state, action) => {

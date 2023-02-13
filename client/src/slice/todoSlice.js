@@ -4,15 +4,23 @@ const todoSlice = createSlice({
   name: "todoSlice",
   initialState: [],
   reducers: {
+    fetchData: (state, action) => {
+      state.push(action.payload);
+    },
+
     add: (state, action) => {
       state.push(action.payload);
     },
 
-    remove: (state, action) => {
-      return state.filter((el, idx) => idx !== action.payload);
+    sync: (state, action) => {
+      for (let i = 0; i < action.payload.length; i++) {
+        state.pop();
+      }
+      state.push(action.payload);
+      return;
     },
   },
 });
 
 export default todoSlice;
-export const { add, done, remove } = todoSlice.actions;
+export const { fetchData, add, done, sync } = todoSlice.actions;

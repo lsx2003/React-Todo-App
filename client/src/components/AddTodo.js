@@ -155,9 +155,15 @@ export default function Addtodd() {
   const id = useSelector((state) => {
     return state.content.selected;
   });
+
+  const addHandler = (id, date, done, content) => {
+    dispatch(add({ id: id, date: date, isDone: done, content: content }));
+    addTodos(id, date, done, content);
+  };
   //  todo 추가하기
+
   const addTodos = async (id, date, done, content) => {
-    await fetch(`http://localhost:4000/api/todos/`, {
+    await fetch(`${process.env.REACT_APP_URL}/api/todos/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -169,12 +175,11 @@ export default function Addtodd() {
         content,
       }),
     });
-
     window.location.reload();
   };
   // content 수정하기
   const changeContent = async (id, content) => {
-    await fetch(`http://localhost:4000/api/todos/`, {
+    await fetch(`${process.env.REACT_APP_URL}/api/todos/`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -197,13 +202,11 @@ export default function Addtodd() {
           수정할 내용을 입력하세요!!
           <ContentInput
             onChange={(event) => {
-              console.log("content :", event.target.value);
               dispatch(updateContent(event.target.value));
             }}
           ></ContentInput>
           <UpdateContentBtn
             onClick={() => {
-              console.log(id, newContent);
               changeContent(id, newContent);
             }}
           >
@@ -224,7 +227,7 @@ export default function Addtodd() {
           ></ContentInput>
           <AddContentBtn
             onClick={() => {
-              addTodos(null, dateString, false, content);
+              addHandler(null, dateString, false, content);
               dispatch(cancel());
               dispatch(addContent(null));
             }}

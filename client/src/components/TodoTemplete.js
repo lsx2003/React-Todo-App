@@ -33,7 +33,6 @@ const Templete = styled.div`
   margin: auto;
   box-shadow: 2px 2px 1px 1px gray;
   background-color: white;
-
   opacity: 0.98;
 `;
 
